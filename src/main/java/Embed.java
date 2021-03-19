@@ -14,7 +14,6 @@ import java.util.Random;
 public class Embed extends ListenerAdapter {
 
 
-
     public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent e) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy/ HH:mm:ss");
         SimpleDateFormat sformat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -23,7 +22,8 @@ public class Embed extends ListenerAdapter {
         String[] args = e.getMessage().getContentRaw().split(" ");
 
         if (args[0].equalsIgnoreCase(Main.prefix + "help")) {
-            System.out.println("!help used in " + e.getGuild().getName());
+            System.out.println("!help used in " + e.getGuild().getName() + ", " + e.getChannel().getName());
+
             EmbedBuilder eb = new EmbedBuilder();
             eb.setTitle("Commands list");
             eb.setDescription("Current prefix is **" + Main.prefix + "**");
@@ -35,7 +35,7 @@ public class Embed extends ListenerAdapter {
             eb.addField("Speech", "Makes a randomized speech for you.", true);
             eb.addField("Setprefix", "Changes prefix to provided character", true);
             eb.addField("Coinflip", "flips a coin", true);
-            eb.addField("Bot", "Sends a bot invite link", true);
+            eb.addField("Invite", "Sends a bot invite link", true);
             eb.addField("RandomEmoji", "Sends random emoji.", true);
             eb.addField("Doge", "Sends random doge image.", true);
             e.getChannel().sendMessage(eb.build()).queue();
@@ -43,11 +43,11 @@ public class Embed extends ListenerAdapter {
 
         try {
             if (args.length == 1 && args[0].equalsIgnoreCase(Main.prefix + "user")) {
-                System.out.println("!user used in " + e.getGuild().getName());
+                System.out.println("!user used in " + e.getGuild().getName() + ", " + e.getChannel().getName());
                 e.getChannel().sendMessage("To get user's info type !user [name]").queue();
             } else if (args.length == 2 && args[0].equalsIgnoreCase(Main.prefix + "user")) {
 
-                System.out.println("!user [username] used in " + e.getGuild().getName());
+                System.out.println("!user [username] used in " + e.getGuild().getName() + ", " + e.getChannel().getName());
                 String userName = args[1];
                 User user = e.getGuild().getMembersByName(userName, true).get(0).getUser();
                 EmbedBuilder userEmbed = new EmbedBuilder();
@@ -65,25 +65,23 @@ public class Embed extends ListenerAdapter {
                 userEmbed.setFooter(sformat.format(date));
                 e.getChannel().sendMessage(userEmbed.build()).queue();
             }
-        } catch (IndexOutOfBoundsException exception){
-            System.out.println("indexoutofbounds exception in " + e.getGuild().getName());
+        } catch (IndexOutOfBoundsException exception) {
+            System.out.println("indexoutofbounds exception in " + e.getGuild().getName() + ", " + e.getChannel().getName());
             e.getChannel().sendMessage("Error, please try again later").queue();
         }
 
         if (args[0].equalsIgnoreCase(Main.prefix + "serverinfo")) {
-            System.out.println("!server used in " + e.getGuild().getName());
+            System.out.println("!server used in " + e.getGuild().getName() + ", " + e.getChannel().getName());
             EmbedBuilder servEmbed = new EmbedBuilder();
             servEmbed.setColor(Color.GREEN);
             servEmbed.setTitle("Current server information");
             servEmbed.setThumbnail(e.getGuild().getIconUrl());
             servEmbed.addField("Name", "**" + e.getGuild().getName() + "**", false);
-//            NAPRAWiC TO POZNIEJ! ! ! !
 //            servEmbed.addField("Online members", String.valueOf(e.getGuild().getMembers().stream().getOnlineStatus() == OnlineStatus.ONLINE), false);
-            //add server icon, server owner, explicit content level, booster count
             String ownerName = Objects.requireNonNull(Objects.requireNonNull(e.getGuild().getOwner()).getEffectiveName());
             servEmbed.addField("Owner", "**" + ownerName + "**", false);
             servEmbed.addField("Created on", "**" + e.getGuild().getTimeCreated().format(formatter) + "**", false);
-            servEmbed.addField("Members count", "**" + e.getGuild().getMemberCount() + "**" , true);
+            servEmbed.addField("Members count", "**" + e.getGuild().getMemberCount() + "**", true);
             servEmbed.addField("Booster count", "**" + e.getGuild().getBoostCount() + "**", true);
             servEmbed.addField("Boost Tier", "**" + e.getGuild().getBoostTier() + "**", true);
             servEmbed.addField("Explicit content level", "**" + e.getGuild().getExplicitContentLevel() + "**", false);
@@ -96,12 +94,12 @@ public class Embed extends ListenerAdapter {
 
             try {
                 servEmbed.addField("AFK Channel: ", e.getGuild().getAfkChannel().getName(), false);
-            } catch (NullPointerException exception){
+            } catch (NullPointerException exception) {
                 servEmbed.addField("AFK Channel: ", "**None**", false);
             }
 
             servEmbed.addField("Emotes", "**" + e.getGuild().getEmotes().size() + "/" + e.getGuild().getMaxEmotes() + "**", true);
-            servEmbed.addField("Roles", "**" + e.getGuild().getRoles().size()+ "**", true);
+            servEmbed.addField("Roles", "**" + e.getGuild().getRoles().size() + "**", true);
 
             servEmbed.setFooter(sformat.format(date));
             e.getChannel().sendMessage(servEmbed.build()).queue();
@@ -121,7 +119,7 @@ public class Embed extends ListenerAdapter {
 
 
         if (args[0].equalsIgnoreCase(Main.prefix + "doge")) {
-            System.out.println("!doge used in " + e.getGuild().getName());
+            System.out.println("!doge used in " + e.getGuild().getName() + ", " + e.getChannel().getName());
             int dogeImgRand = dogeRand.nextInt(7);
             EmbedBuilder dogeEmbed = new EmbedBuilder();
             dogeEmbed.setColor(dogeYellow);

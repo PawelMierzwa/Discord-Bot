@@ -7,15 +7,15 @@ import org.jetbrains.annotations.NotNull;
 public class ready extends ListenerAdapter {
 
     @Override
-    public void onReady(@NotNull ReadyEvent event){
+    public void onReady(@NotNull ReadyEvent event) {
         System.out.println("Bot is ready");
     }
 
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent ev){
+    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent ev) {
         String prefix = Config.get("PREFIX");
         String raw = ev.getMessage().getContentRaw();
 
-        if (raw.equalsIgnoreCase(prefix + "shutdown") && ev.getAuthor().getId().equals(Config.get("OWNER_ID"))){
+        if (raw.equalsIgnoreCase(prefix + "shutdown") && ev.getAuthor().getId().equals(Config.get("OWNER_ID"))) {
             ev.getJDA().shutdown();
             BotCommons.shutdown(ev.getJDA());
         }

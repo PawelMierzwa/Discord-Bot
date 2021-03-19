@@ -17,16 +17,18 @@ public class Main extends ListenerAdapter {
                 GatewayIntent.GUILD_MESSAGES,
                 GatewayIntent.GUILD_MESSAGE_TYPING,
                 GatewayIntent.GUILD_MEMBERS,
-                GatewayIntent.GUILD_PRESENCES)
+                GatewayIntent.GUILD_PRESENCES,
+                GatewayIntent.DIRECT_MESSAGES)
                 .disableCache(CacheFlag.EMOTE,
                         CacheFlag.VOICE_STATE)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .build();
         jda.getPresence().setStatus(OnlineStatus.DO_NOT_DISTURB);
-        jda.getPresence().setActivity(Activity.watching("java tutorials xd"));
+        jda.getPresence().setActivity(Activity.watching("java tutorials (!help)"));
         jda.addEventListener(new ready());
         jda.addEventListener(new Commands());
         jda.addEventListener(new Embed());
+        jda.addEventListener(new directCommands());
     }
 }
 

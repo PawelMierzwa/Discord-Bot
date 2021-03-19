@@ -75,8 +75,7 @@ public class Commands extends ListenerAdapter {
         } else if (args.length == 2 && args[0].equalsIgnoreCase(Main.prefix + "setprefix")) {
             System.out.println("!setprefix [prefix] used in " + event.getGuild().getName());
             System.out.println("!setprefix used in " + event.getGuild().getName());
-            char prefixo = args[1].charAt(0);
-            Main.prefix = prefixo;
+            Main.prefix = args[1].charAt(0);
             event.getChannel().sendMessage("prefix has been set to " + Main.prefix).queue();
         }
 
@@ -89,10 +88,9 @@ public class Commands extends ListenerAdapter {
             event.getChannel().sendMessage(emojiArray[randEmoji]).queue();
         }
 
-        if (args[0].equalsIgnoreCase(Main.prefix + "bot")){
-            System.out.println("!bot used in " + event.getGuild().getName());
+        if (args[0].equalsIgnoreCase(Main.prefix + "invite")){
+            System.out.println("!invite used in " + event.getGuild().getName() + ", " + event.getChannel().getName());
             event.getChannel().sendMessage("https://discord.com/api/oauth2/authorize?client_id=821068960346669076&permissions=8&scope=bot").queue();
         }
-
     }
 }
